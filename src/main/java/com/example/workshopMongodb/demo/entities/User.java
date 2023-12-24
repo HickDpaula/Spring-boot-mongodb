@@ -1,14 +1,15 @@
 package com.example.workshopMongodb.demo.entities;
 
-import jakarta.persistence.Entity;
+
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "tb_user")
+
+@Document
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
