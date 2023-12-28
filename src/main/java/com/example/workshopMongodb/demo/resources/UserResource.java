@@ -20,25 +20,32 @@ public class UserResource {
     UserService userService;
 
     @GetMapping
-    public ResponseEntity <List<UserDTO>> findAll(){
-     List<User> list = userService.findAll();
-     List<UserDTO> listDto = list.stream().map(user -> new UserDTO (user)).collect(Collectors.toList());
-      return ResponseEntity.ok().body(listDto);
+    public ResponseEntity<List<UserDTO>> findAll() {
+        List<User> list = userService.findAll();
+        List<UserDTO> listDto = list.stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
 
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable String id){
-         User obj = userService.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        User obj = userService.findById(id);
         return ResponseEntity.ok().body(new UserDTO(obj));
     }
 
     @PostMapping
-    public ResponseEntity<Void> Insert(@RequestBody UserDTO objDTO){
+    public ResponseEntity<Void> Insert(@RequestBody UserDTO objDTO) {
         User obj = userService.fromDTO(objDTO);
         obj = userService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
 
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
