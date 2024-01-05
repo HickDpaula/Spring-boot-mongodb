@@ -1,11 +1,14 @@
 package com.example.workshopMongodb.demo.entities;
 
 import com.example.workshopMongodb.demo.dto.AuthorDTO;
+import com.example.workshopMongodb.demo.dto.CommentDTO;
 import jakarta.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 @Document
 public class Post implements Serializable {
@@ -16,6 +19,8 @@ public class Post implements Serializable {
     private String title;
     private String body;
     private AuthorDTO author;
+
+    private List<CommentDTO> commentDTO = new ArrayList<>();
 
     public Post(){
 
@@ -67,6 +72,14 @@ public class Post implements Serializable {
 
     public void setAuthor(AuthorDTO author) {
         this.author = author;
+    }
+
+    public List<CommentDTO> getCommentDTO() {
+        return commentDTO;
+    }
+
+    public void setCommentDTO(List<CommentDTO> commentDTO) {
+        this.commentDTO = commentDTO;
     }
 
     @Override
